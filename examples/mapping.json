@@ -1,0 +1,10 @@
+[
+    {
+        "image_path": "examples/dog.jpg",
+        "instruction": "Make the dog look like a painting"
+    },
+    {
+        "image_path": "examples/dog.jpg",
+        "instruction": "turn the dog into a cat"
+    }
+]

@@ -1,0 +1,22 @@
+services:
+  vibe:
+    build: .
+    image: vibe:latest
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    volumes:
+      - .:/app
+      - ./outputs:/app/outputs
+    environment:
+      - PYTHONPATH=/app/src
+      - HF_HOME=/app/cache/huggingface
+    working_dir: /app
+    command: /bin/bash
+    tty: true
+    stdin_open: true
+    shm_size: '8gb'
