@@ -18,7 +18,7 @@ from diffusers.models.transformers.sana_transformer import (
 from diffusers.utils import USE_PEFT_BACKEND, logging, scale_lora_layers, unscale_lora_layers
 from torch import nn
 
-from src.transformer.edit_head import MetaConnector
+from vibe.transformer.edit_head import MetaConnector
 
 logger = logging.get_logger(__name__)  # pylint: disable=invalid-name
 

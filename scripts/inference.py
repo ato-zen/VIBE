@@ -8,7 +8,7 @@ import click
 from loguru import logger
 from PIL import Image
 
-from src.editor import ImageEditor
+from vibe.editor import ImageEditor
 
 
 def process_instruction(
@@ -99,7 +99,7 @@ def generate_single_image(  # noqa: PLR0913
 @click.option("--num-images-per-prompt", type=int, default=1)
 @click.option("--output-path", type=str, required=True)
 @click.option("--checkpoint-path", type=str, required=True)
-@click.option("--image-guidance-scale", type=float, default=1.5)
+@click.option("--image-guidance-scale", type=float, default=1.2)
 @click.option("--guidance-scale", type=float, default=4.5)
 @click.option("--num-inference-steps", type=int, default=20)
 @click.option("--device", type=str, default="cuda:0")
@@ -122,7 +122,7 @@ def edit_single_image(  # noqa: PLR0913
         num_images_per_prompt (int): The number of images to generate for each instruction.
         output_path (str): The path to the output images.
         checkpoint_path (str): The path to the local checkpoint.
-        image_guidance_scale (float): Image guidance scale. NOTE: -1.5 => not use img cfg, 1.5 => use
+        image_guidance_scale (float): Image guidance scale.
         guidance_scale (float): Text guidance scale.
         num_inference_steps (int): The number of inference steps.
         device (str): The device to use.
@@ -157,7 +157,7 @@ def edit_single_image(  # noqa: PLR0913
 @click.option("--num-images-per-prompt", type=int, default=1)
 @click.option("--output-path", type=str, required=True)
 @click.option("--checkpoint-path", type=str, required=True)
-@click.option("--image-guidance-scale", type=float, default=1.5)
+@click.option("--image-guidance-scale", type=float, default=1.2)
 @click.option("--guidance-scale", type=float, default=4.5)
 @click.option("--num-inference-steps", type=int, default=20)
 @click.option("--device", type=str, default="cuda:0")
@@ -187,7 +187,7 @@ def edit_multiple_images(  # noqa: PLR0913
         num_images_per_prompt (int): The number of images to generate for each instruction.
         output_path (str): The path to the output directory.
         checkpoint_path (str): The path to the local checkpoint.
-        image_guidance_scale (float): Image guidance scale. NOTE: -1.5 => not use img cfg, 1.5 => use
+        image_guidance_scale (float): Image guidance scale.
         guidance_scale (float): Text guidance scale.
         num_inference_steps (int): The number of inference steps.
         device (str): The device to use.

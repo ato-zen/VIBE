@@ -6,20 +6,15 @@ import torch
 from diffusers.image_processor import PixArtImageProcessor
 from diffusers.models import AutoencoderDC
 from diffusers.pipelines.sana.pipeline_output import SanaPipelineOutput
-from diffusers.pipelines.sana.pipeline_sana import (
-    ASPECT_RATIO_512_BIN,
-    ASPECT_RATIO_1024_BIN,
-    ASPECT_RATIO_2048_BIN,
-    SanaPipeline,
-    retrieve_timesteps,
-)
+from diffusers.pipelines.sana.pipeline_sana import SanaPipeline, retrieve_timesteps
 from diffusers.schedulers import DPMSolverMultistepScheduler
 from diffusers.utils import is_torch_xla_available
 from loguru import logger
 from PIL import Image
 from transformers import Qwen3VLForConditionalGeneration, Qwen3VLProcessor
 
-from src.transformer import VIBESanaEditingModel
+from vibe.generative_pipeline.aspects_multiscale import ASPECT_RATIO_512, ASPECT_RATIO_1024, ASPECT_RATIO_2048
+from vibe.transformer import VIBESanaEditingModel
 
 if is_torch_xla_available():
     import torch_xla.core.xla_model as xm  # type: ignore # pylint: disable
@@ -104,11 +99,11 @@ class VIBESanaEditingPipeline(SanaPipeline):
         """
         sample_area = height * width
         if sample_area <= self.bin_512_space * 2 + 256**2:
-            aspect_ratio_bin = ASPECT_RATIO_512_BIN
+            aspect_ratio_bin = ASPECT_RATIO_512
         elif sample_area <= self.bin_1024_space * 2 + 512**2:
-            aspect_ratio_bin = ASPECT_RATIO_1024_BIN
+            aspect_ratio_bin = ASPECT_RATIO_1024
         else:
-            aspect_ratio_bin = ASPECT_RATIO_2048_BIN
+            aspect_ratio_bin = ASPECT_RATIO_2048
         height, width = self.image_processor.classify_height_width_bin(height, width, ratios=aspect_ratio_bin)
         return height, width
 
@@ -587,7 +582,7 @@ class VIBESanaEditingPipeline(SanaPipeline):
         timesteps: list[int] | None = None,
         sigmas: list[float] | None = None,
         guidance_scale: float = 4.5,
-        image_guidance_scale: float = 1.5,
+        image_guidance_scale: float = 1.2,
         num_images_per_prompt: int = 1,
         generator: torch.Generator | list[torch.Generator] | None = None,
         output_type: str = "pil",

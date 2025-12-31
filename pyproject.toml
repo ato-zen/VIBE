@@ -52,7 +52,7 @@ ignore = [
     "COM812",
     "G004",   # use f-string for logging
 ]
-task-tags = ["TODO", "FIXME", "XXX", "HACK"]
+task-tags = ["EDIT", "SANA", "QWEN", "VIBE"]
 
 [tool.ruff.lint.per-file-ignores]
 "__init__.py" = ["F401"]   # ignore unused imports in __init__.py files
@@ -60,3 +60,14 @@ task-tags = ["TODO", "FIXME", "XXX", "HACK"]
 
 [tool.ruff.lint.flake8-annotations]
 allow-star-arg-any = true  # suppress ANN401 for *args and **kwargs
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "vibe"
+version = "1.0.0"
+
+[tool.setuptools.packages.find]
+where = ["."]

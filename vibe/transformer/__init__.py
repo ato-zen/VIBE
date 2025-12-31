@@ -1,4 +1,4 @@
-"""Sana Editing model."""
+"""VIBE Sana Editing model."""
 
 from .vibe_sana_editing import VIBESanaEditingModel
 

@@ -33,7 +33,7 @@ python scripts/inference.py edit-single-image \
     --num-images-per-prompt "$NUM_IMAGES_PER_PROMPT" \
     --output-path "$OUTPUT_PATH" \
     --checkpoint-path "$CHECKPOINT_PATH" \
-    --image-guidance-scale 1.5 \
+    --image-guidance-scale 1.2 \
     --guidance-scale 4.5 \
     --num-inference-steps 20 \
     --device "cuda:0"

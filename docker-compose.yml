@@ -13,7 +13,7 @@ services:
       - .:/app
       - ./outputs:/app/outputs
     environment:
-      - PYTHONPATH=/app/src
+      - PYTHONPATH=/app/vibe
       - HF_HOME=/app/cache/huggingface
     working_dir: /app
     command: /bin/bash

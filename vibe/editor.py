@@ -7,9 +7,9 @@ import torch
 from loguru import logger
 from PIL import Image
 
-from src.generative_pipeline import VIBESanaEditingPipeline
-from src.utils import retry_decorator
-from src.utils.img_utils import get_multiscale_transform, postprocess_padded_image, revert_resize
+from vibe.generative_pipeline import VIBESanaEditingPipeline
+from vibe.utils import retry_decorator
+from vibe.utils.img_utils import get_multiscale_transform, postprocess_padded_image, revert_resize
 
 MAX_SEED = np.iinfo(np.int32).max
 
@@ -35,10 +35,11 @@ class ImageEditor:
     def __init__(
         self,
         checkpoint_path: str,
-        image_guidance_scale: float = 1.5,
+        image_guidance_scale: float = 1.2,
         guidance_scale: float = 4.5,
         num_inference_steps: int = 20,
         device: str = "cuda:0",
+        **kwargs,
     ) -> None:
         """Initialize the image editor.
 
@@ -54,16 +55,18 @@ class ImageEditor:
         self.num_inference_steps = num_inference_steps
         self.image_guidance_scale = image_guidance_scale
         self.guidance_scale = guidance_scale
-        self.get_generation_pipe(checkpoint_path)
+        self.get_generation_pipe(checkpoint_path, **kwargs)
 
     @retry_decorator(logger=logger, delay=1)
-    def get_generation_pipe(self, checkpoint_path: str) -> None:
+    def get_generation_pipe(self, checkpoint_path: str, **kwargs) -> None:
         """Get the generation pipe.
 
         Args:
             checkpoint_path (str): The path to the pipeline checkpoint.
         """
-        self.pipe = VIBESanaEditingPipeline.from_pretrained(checkpoint_path, torch_dtype=self.weight_dtype).to(self.device)
+        self.pipe = VIBESanaEditingPipeline.from_pretrained(
+            checkpoint_path, torch_dtype=self.weight_dtype, **kwargs
+        ).to(self.device)
 
     def prepare_image_for_diffusion(self, image: Image.Image) -> tuple[Image.Image, tuple[int, ...] | None]:
         """Prepare the image for diffusion.

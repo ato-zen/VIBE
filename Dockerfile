@@ -40,6 +40,6 @@ RUN pip install --no-cache-dir --upgrade pip && \
 COPY . .
 
 # Set Python path
-ENV PYTHONPATH=/app/src:$PYTHONPATH
+ENV PYTHONPATH=/app/vibe:$PYTHONPATH
 
 CMD ["/bin/bash"]

@@ -82,8 +82,8 @@ python scripts/inference.py edit-single-image \
     --checkpoint-path "/path/to/pipeline/checkpoint" \
     --output-path "outputs/" \
     --num-images-per-prompt 1 \
-    --image-guidance-scale 1.5 \
-    --guidance-scale 4.6 \
+    --image-guidance-scale 1.2 \
+    --guidance-scale 4.5 \
     --num-inference-steps 20 \
     --device "cuda:0"
 ```
@@ -116,7 +116,7 @@ python scripts/inference.py edit-multiple-images \
     --checkpoint-path "/path/to/pipeline/checkpoint" \
     --output-path "outputs/multi_img_results" \
     --num-images-per-prompt 1 \
-    --image-guidance-scale 1.5 \
+    --image-guidance-scale 1.2 \
     --guidance-scale 4.5 \
     --num-inference-steps 20 \
     --device "cuda:0"
@@ -130,14 +130,14 @@ python scripts/inference.py edit-multiple-images \
 - `--checkpoint-path`: Path to the local pipeline checkpoint (directory containing weights).
 - `--output-path`: Directory where the result will be saved.
 - `--num-images-per-prompt`: Number of variations to generate (default: 1).
-- `--image-guidance-scale`: Controls the influence of the input image (default: 1.5).
-- `--guidance-scale`: Controls the strength of the text prompt guidance (default: 5.0).
+- `--image-guidance-scale`: Controls the influence of the input image (default: 1.2).
+- `--guidance-scale`: Controls the strength of the text prompt guidance (default: 4.5).
 - `--num-inference-steps`: Number of denoising steps (default: 20).
 - `--device`: The device to use.
 
 ## Project Structure
 
-- **`src/`**: Core source code.
+- **`vibe/`**: Core source code.
   - `editor.py`: Main `ImageEditor` class for high-level interaction.
   - `generative_pipeline/`: Sana1.5-based diffusion pipeline logic.
   - `transformer/`: Custom transformer models and editing head.
