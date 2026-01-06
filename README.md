@@ -1,6 +1,6 @@
 # VIBE - Visual Instruction Based Editor
 
-[[`Demo`](https://huggingface.co/spaces/iitolstykh/VIBE-Image-Edit-DEMO)] [[`🤗 HuggingFace Model`](https://huggingface.co/iitolstykh/VIBE-Image-Edit)]
+[[`Paper`](https://arxiv.org/abs/2601.02242)] [[`Demo`](https://huggingface.co/spaces/iitolstykh/VIBE-Image-Edit-DEMO)] [[`🤗 HuggingFace Model`](https://huggingface.co/iitolstykh/VIBE-Image-Edit)]
 
 VIBE is a powerful open-source framework for text-guided image editing.
 It leverages the efficient [Sana1.5-1.6B](github.com/NVlabs/Sana) diffusion model and [Qwen3-VL-2B-Instruct](github.com/QwenLM/Qwen3-VL) to provide **exceptionally fast** and high-quality, instruction-based image manipulation.
@@ -162,9 +162,10 @@ This project builds upon the work of:
 ## Citation
 
 ```bibtex
-@misc{vibe2025,
-  author = {Grigorii Alekseenko, Aleksandr Gordeev, Irina Tostykh, Bulat Suleimanov, Vladimir Dokholyan, Georgii Fedorov, Sergey Yakubson, Aleksandra Tsybina, Mikhail Chernyshov, Maksim Kuprashevich},
-  title = {VIBE: Visual Instruction Based Editor},
-  year = {2025},
+@misc{vibe2026,
+  Author = {Grigorii Alekseenko and Aleksandr Gordeev and Irina Tolstykh and Bulat Suleimanov and Vladimir Dokholyan and Georgii Fedorov and Sergey Yakubson and Aleksandra Tsybina and Mikhail Chernyshov and Maksim Kuprashevich},
+  Title = {VIBE: Visual Instruction Based Editor},
+  Year = {2026},
+  Eprint = {arXiv:2601.02242},
 }
 ```
