@@ -1,3 +1,9 @@
+# ------------------------------------------------------------------------------
+# VIBE Gradio Interface
+# Original VIBE Model by: AI-Forever / Alibaba / NVLabs (see README)
+# Gradio UI Implementation by: [Twój Nick]
+# ------------------------------------------------------------------------------
+
 import os
 import sys
 import torch
