@@ -7,6 +7,7 @@ It leverages the efficient [Sana1.5-1.6B](github.com/NVlabs/Sana) diffusion mode
 
 ## Features
 
+- **Local Web Interface**: Integrated Gradio UI for easy drag-and-drop editing and parameter tuning.
 - **Text-Guided Editing**: Edit images using natural language instructions (e.g., "Add a cat on the sofa").
 - **Compact Size**: 1.6B params diffusion and 2B condition encoder.
 - **High-Speed Inference**: Powered by Sana1.5's efficient linear attention mechanism, enabling rapid image editing.
@@ -71,6 +72,21 @@ Alternatively, you can use Docker to run the project without installing dependen
 
 ## Usage
 
+The easiest way to use VIBE is through the new web interface (Gradio). This allows for Drag & Drop editing without modifying scripts.
+
+1. **Activate the environment**:
+    ```bash
+    conda activate ./vibe_env
+    ```
+
+2. **Run the application**:
+    ```bash
+    python app.py
+    ```
+
+3. **Open the Interface**:
+    Look for the local URL in the terminal (usually `http://127.0.0.1:7860`) and open it in your web browser.
+   
 ### Single Image processing
 
 You can use the provided shell script to edit single images directly from the terminal.
@@ -151,6 +167,7 @@ python scripts/inference.py edit-multiple-images \
   - `transformer/`: Custom transformer models and editing head.
 - **`scripts/`**: Utility scripts.
   - `inference.py`: CLI entry point for image editing.
+- **`app.py`**: The Gradio Web Interface script.
 
 ## Acknowledgements
 
@@ -158,6 +175,7 @@ This project builds upon the work of:
 
 - [Qwen3-VL](github.com/QwenLM/Qwen3-VL)
 - [Sana: Efficient High-Resolution Image Synthesis with Linear Diffusion Transformer](github.com/NVlabs/Sana)
+- [Local Gradio Interface implementation by ato-zen](github.com/ato-zen)
 
 ## Citation
 
