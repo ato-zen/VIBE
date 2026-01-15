@@ -1,7 +1,8 @@
 # ------------------------------------------------------------------------------
 # VIBE Gradio Interface
-# Original VIBE Model by: AI-Forever / Alibaba / NVLabs (see README)
-# Gradio UI Implementation by: ato-zen
+# Original VIBE Model by: AI-Forever / Alibaba / NVLabs
+# Gradio Web UI Implementation by: ato-zen
+# Repository: https://github.com/ato-zen/VIBE
 # ------------------------------------------------------------------------------
 
 import os
@@ -68,9 +69,12 @@ def process_image(input_image, instruction, neg_prompt, img_guidance, text_guida
     if torch.cuda.is_available():
         torch.cuda.manual_seed_all(seed)
     
-    # Logging
-    dims_info = f"{width}x{height}"
-    print(f"🎨 Start: '{instruction}' | Seed: {seed} | Size: {dims_info}")
+    # Target dimensions
+    target_w = int(width)
+    target_h = int(height)
+    
+    dims_info = f"{target_w}x{target_h}"
+    print(f"🎨 Start: '{instruction}' | Seed: {seed} | Target Size: {dims_info}")
 
     try:
         # Determine method name
@@ -85,12 +89,19 @@ def process_image(input_image, instruction, neg_prompt, img_guidance, text_guida
             "seed": seed,
             "randomize_seed": False, 
             "num_images_per_prompt": 1,
-            "t2i_width": int(width),
-            "t2i_height": int(height),
+            # We pass these just in case (for T2I mode)
+            "t2i_width": target_w,
+            "t2i_height": target_h,
         }
 
-        # Handle Image Input
+        # Handle Image Input & RESIZING LOGIC
         if input_image is not None:
+            # Check if resize is needed
+            if input_image.width != target_w or input_image.height != target_h:
+                print(f"⚠️ Resizing input image from {input_image.size} to ({target_w}, {target_h})")
+                # LANCZOS filter provides high quality downscaling/upscaling
+                input_image = input_image.resize((target_w, target_h), Image.Resampling.LANCZOS)
+            
             kwargs["conditioning_image"] = input_image
         else:
             kwargs["conditioning_image"] = None
@@ -100,7 +111,7 @@ def process_image(input_image, instruction, neg_prompt, img_guidance, text_guida
         if "negative_prompt" in sig.parameters and neg_prompt:
             kwargs["negative_prompt"] = neg_prompt
 
-        print(f"🚀 Running... (Target Size: {width}x{height})")
+        print(f"🚀 Running inference...")
 
         # Execute
         result = target_method(**kwargs)
@@ -126,7 +137,9 @@ def process_image(input_image, instruction, neg_prompt, img_guidance, text_guida
         metadata.add_text("Steps", str(steps))
         metadata.add_text("Guidance Scale", str(text_guidance))
         metadata.add_text("Image Guidance Scale", str(img_guidance))
+        metadata.add_text("Target Size", f"{target_w}x{target_h}")
         metadata.add_text("Model", "VIBE")
+        metadata.add_text("Interface", "ato-zen Gradio UI")
 
         # --- SAVING ---
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
@@ -144,14 +157,13 @@ def process_image(input_image, instruction, neg_prompt, img_guidance, text_guida
         raise gr.Error(str(e))
 
 
-# --- 4. GRADIO INTERFACE (Pure Default) ---
+# --- 4. GRADIO INTERFACE ---
 
-# No custom CSS. Relying purely on Gradio's internal styles.
 css = ""
 
 with gr.Blocks(theme=gr.themes.Default(), title="VIBE Editor") as demo:
     
-    gr.Markdown("## VIBE Editor")
+    gr.Markdown("## VIBE Editor (WebUI by ato-zen)")
     
     with gr.Row():
         # --- LEFT COLUMN (Inputs) ---
