@@ -175,7 +175,6 @@ This project builds upon the work of:
 
 - [Qwen3-VL](github.com/QwenLM/Qwen3-VL)
 - [Sana: Efficient High-Resolution Image Synthesis with Linear Diffusion Transformer](github.com/NVlabs/Sana)
-- [Local Gradio Interface implementation by ato-zen](github.com/ato-zen)
 
 ## Citation
 
@@ -187,3 +186,5 @@ This project builds upon the work of:
   Eprint = {arXiv:2601.02242},
 }
 ```
+## Maintainer
+Gradio Interface developed by [ato-zen](https://github.com/ato-zen).
